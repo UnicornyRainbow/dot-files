@@ -16,9 +16,16 @@ compinit
 # Custom Config
 
 # User specific environment
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
-then
-    PATH="$HOME/.local/bin:$HOME/bin:$HOME/.local/share/flatpak/exports/bin:/var/lib/flatpak/exports/bin:/usr/local/texlive/2022/bin/x86_64-linux:$PATH"
+if [[ $(uname) == "Darwin" ]]; then
+	if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+	then
+	    PATH="$HOME/Library/Python/3.8/bin:$HOME/.local/bin:$HOME/bin:$PATH"
+	fi
+else
+	if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+	then
+	    PATH="$HOME/Library/Python/3.8/bin:$HOME/.local/bin:$HOME/bin:$PATH"
+	fi
 fi
 export PATH
 
@@ -29,11 +36,6 @@ export PATH
 #PERL_MM_OPT="INSTALL_BASE=/home/unicorn/perl5"; export PERL_MM_OPT;
 
 # aliases
-alias gimme='sudo dnf install'
-alias yeet='sudo dnf remove'
-alias news='sudo dnf upgrade'
-alias clean='sudo dnf autoremove'
-alias play='nvlc ./'
 alias ll='ls -laF'
 alias venv='source .venv/bin/activate'
 alias unvenv='deactivate'
@@ -43,8 +45,13 @@ alias cbat='bat --paging=never'
 bindkey "^[[H"  beginning-of-line
 bindkey "^[[F"  end-of-line
 bindkey "^[[3~" delete-char
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
+if [[ $(uname) == "Darwin" ]]; then
+	bindkey "^[^[[C" forward-word
+	bindkey "^[^[[D" backward-word
+else
+	bindkey "^[[1;5C" forward-word
+	bindkey "^[[1;5D" backward-word
+fi
 
 # Prompt
 
