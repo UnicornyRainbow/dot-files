@@ -24,7 +24,7 @@ if [[ $(uname) == "Darwin" ]]; then
 else
 	if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
 	then
-	    PATH="$HOME/Library/Python/3.8/bin:$HOME/.local/bin:$HOME/bin:$PATH"
+	    PATH="$HOME/.local/bin:$HOME/bin:$HOME/.local/share/flatpak/exports/bin:/var/lib/flatpak/exports/bin:/usr/local/texlive/2022/bin/x86_64-linux:$PATH"
 	fi
 fi
 export PATH
